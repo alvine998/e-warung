@@ -27,7 +27,7 @@ export default function LoginSellerPage() {
         title: "Login Berhasil",
       });
       setLoading(false);
-      router.push("/seller/dashboard");
+      router.push("/seller/main/dashboard");
     } catch (error: any) {
       console.log(error);
       setLoading(false);

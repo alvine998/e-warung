@@ -28,7 +28,7 @@ export default function TermsPage() {
               </strong>
               {term.children?.map((child) => (
                 <p className="ml-2 mt-1" key={child.id}>
-                  {term.id}.{child.id}. {child.text}
+                  {`${term.id}.${child.id}.`} {child.text}
                 </p>
               ))}
             </p>
