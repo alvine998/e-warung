@@ -18,7 +18,11 @@ export default function App({ Component, pageProps }: AppProps) {
       </Head>
       <div className="w-full max-w-2xl px-4 bg-slate-50 max-h-[100vh] overflow-auto">
         <Component {...pageProps} />
-        {currentPath?.includes("/seller") ? null : <BottomTab />}
+        {currentPath?.includes("/seller/main") ? (
+          <BottomTab />
+        ) : currentPath?.includes("/seller") ? null : (
+          <BottomTab />
+        )}
       </div>
     </div>
   );

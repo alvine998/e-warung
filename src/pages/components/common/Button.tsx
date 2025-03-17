@@ -14,7 +14,7 @@ const Button: React.FC<ButtonProps> = ({ variant = "primary", className, childre
     danger: "bg-red-500 text-white rounded hover:bg-red-600 focus:ring-red-300",
     secondary: "bg-gray-500 text-white rounded hover:bg-gray-600 focus:ring-gray-300",
     white: "bg-white text-gray-900 rounded border border-gray-300 hover:bg-gray-100 focus:ring-gray-200",
-    "custom-color": "text-white rounded",
+    "custom-color": "rounded",
   };
 
   return (
