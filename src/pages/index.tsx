@@ -1,115 +1,145 @@
-import Image from "next/image";
-import localFont from "next/font/local";
+import {
+  BellIcon,
+  DotIcon,
+  MailIcon,
+  SearchIcon,
+  ShoppingBagIcon,
+  ShoppingCartIcon,
+} from "lucide-react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import Cart from "./components/Cart";
+import SliderBanner from "./components/SliderBanner";
+import Category from "./components/Home/Category";
+import FlashSale from "./components/Home/FlashSale";
+import PopularProduct from "./components/Home/PopularProduct";
+import TooltipComponent from "./components/Tooltips";
+import NotificationSide from "./components/Notification";
+import InboxSide from "./components/Inbox";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-const geistMono = localFont({
-  src: "./fonts/GeistMonoVF.woff",
-  variable: "--font-geist-mono",
-  weight: "100 900",
-});
+export default function index() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenNotif, setIsOpenNotif] = useState<boolean>(false);
+  const [isOpenInbox, setIsOpenInbox] = useState<boolean>(false);
 
-export default function Home() {
   return (
-    <div
-      className={`${geistSans.variable} ${geistMono.variable} grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]`}
-    >
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="https://nextjs.org/icons/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="p-4">
+      {/* Open Side Cart */}
+      {isOpen && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-40"
+          onClick={() => setIsOpen(false)}
         />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/pages/index.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+      )}
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: isOpen ? 0 : "100%" }}
+        exit={{ x: "100%" }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        className="fixed top-0 right-0 h-full w-80 bg-white shadow-lg z-50 p-5"
+      >
+        <Cart setIsOpen={setIsOpen} />
+      </motion.div>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="https://nextjs.org/icons/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Open Side Notif */}
+      {isOpenNotif && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-40"
+          onClick={() => setIsOpenNotif(false)}
+        />
+      )}
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: isOpenNotif ? 0 : "100%" }}
+        exit={{ x: "100%" }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        className="fixed top-0 right-0 h-full w-80 bg-white shadow-lg z-50 p-5"
+      >
+        <NotificationSide setIsOpen={setIsOpenNotif} />
+      </motion.div>
+
+      {/* Open Side Inbox */}
+      {isOpenInbox && (
+        <div
+          className="fixed inset-0 bg-black bg-opacity-40 z-40"
+          onClick={() => setIsOpenInbox(false)}
+        />
+      )}
+      <motion.div
+        initial={{ x: "100%" }}
+        animate={{ x: isOpenInbox ? 0 : "100%" }}
+        exit={{ x: "100%" }}
+        transition={{ duration: 0.5, ease: "easeInOut" }}
+        className="fixed top-0 right-0 h-full w-80 bg-white shadow-lg z-50 p-5"
+      >
+        <InboxSide setIsOpen={setIsOpenInbox} />
+      </motion.div>
+
+      <div className="lg:px-5 px-0 lg:pb-10 pb-2">
+        {/* Cart */}
+        <div className="flex justify-between items-end">
+          <h1 className="font-bold">WARUNG</h1>
+          <div className="flex gap-5">
+            <TooltipComponent text="Notifikasi">
+              <button
+                onClick={() => {
+                  setIsOpenNotif(true);
+                }}
+              >
+                <BellIcon className="w-6 h-6" />
+              </button>
+            </TooltipComponent>
+
+            <TooltipComponent text="Pesan">
+              <button
+                onClick={() => {
+                  setIsOpenInbox(true);
+                }}
+              >
+                <MailIcon className="w-6 h-6" />
+              </button>
+            </TooltipComponent>
+            <TooltipComponent text="Keranjang">
+              <button
+                onClick={() => {
+                  setIsOpen(true);
+                }}
+              >
+                <ShoppingCartIcon className="w-6 h-6" />
+              </button>
+            </TooltipComponent>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
+        {/* Search */}
+        <div className="my-2 flex bg-gray-200 rounded gap-2 py-4 px-4">
+          <SearchIcon className="text-gray-500" />
+          <input
+            type="text"
+            placeholder="Cari Kebutuhanmu Disini..."
+            className="bg-transparent text-gray-500 focus:outline-none w-full placeholder-gray-500"
           />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="https://nextjs.org/icons/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+        </div>
+
+        {/* Category */}
+        <div>
+          <Category />
+        </div>
+
+        {/* Slider */}
+        <div className="my-4">
+          <SliderBanner />
+        </div>
+
+        {/* Flash Sale */}
+        <div className="my-4">
+          <FlashSale />
+        </div>
+
+        {/* Popular Product */}
+        <div className="my-4">
+          <PopularProduct />
+        </div>
+      </div>
     </div>
   );
 }
